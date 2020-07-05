@@ -32,9 +32,9 @@ export default class App {
     try {
       new ConsoleLog('info:start').printConsole('Starting API...');
 
-      this.middleware();
-      this.setupViews();
       this.routes();
+      this.setupViews();
+      this.middleware();
 
       new ConsoleLog('info:start').printConsole('API has been started.');
     } catch (err) {
@@ -64,6 +64,11 @@ export default class App {
     this.server.use(express.static(path.join(__dirname, 'public')));
     this.server.use(cookieParser());
 
+    // catch 404 and forward to error handler
+    this.server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+      next(createError(404));
+    });
+
     // error handler
     this.server.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
       // set locals, only providing error in development
@@ -73,11 +78,6 @@ export default class App {
       // render the error page
       res.status(err.status || 500);
       res.render('error');
-    });
-
-    // catch 404 and forward to error handler
-    this.server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-      next(createError(404));
     });
   }
 }
