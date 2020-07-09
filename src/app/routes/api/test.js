@@ -11,4 +11,13 @@ router.get(
     },
 );
 
+router.post(
+  '/',
+  (req: Request, res: Response, next: any) => {
+    try {
+      res.json('API is running!!!');
+    } catch (err) { next(err); }
+  },
+);
+
 module.exports = router;

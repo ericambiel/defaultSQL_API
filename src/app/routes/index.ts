@@ -9,4 +9,5 @@ router.get('/', (req, res) => {
 // router.use('/api/permission', require('./api/routepermissions'));
 router.use('/api/test', require('./api/test'));
 
-module.exports = router;
+
+export default router;
